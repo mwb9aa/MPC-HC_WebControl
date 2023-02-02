@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>MPC-HC WebServer - Controls</title>
+        <link rel="icon" href="favicon.ico">
+        <style>
+            .flex {display:flex; flex-direction: column; text-align: center; align-items: center; width:100vw; height:80vh;  justify-content: space-between; }
+            .item {width:clamp(10vw, 80vw, calc(100vw / 1)); font-size: clamp(2vw, calc(7vw * 1), calc(100vh / 10)); }
+        </style>
+    </head>
+    <body>
+        
+        <div id="playback" class="flex"><h4>Playback Control</h4>
+            <button type="button" id="q@887"class="item" title="Play">Play</button>
+            <button type="button" id="q@888"class="item" title="Pause">Pause</button>
+            <button type="Button" id="q@899"class="item" title="Jump Backward (small)">Skip Back</button>
+            <button type="button" id="q@900"class="item" title="Jump Forward (small)">Skip Forward</button>
+            <button type="button" id="q@907"class="item" title="Volume Up" >Volume Up</button>
+            <button type="button" id="q@908"class="item" title="Volume Down">Volume Down</button>
+            <button type="button" id="q@895"class="item" title="Speed Up">Speed Up</button>
+            <button type="button" id="q@894"class="item" title="Slow Down">Slow Down</button>
+        </div>
+</body>
+</html>
+<script>
+    document.getElementById("playback").addEventListener("click", postForm);
+    async function postForm() {
+        var clicked=event.target.id.split("@");
+        data="wm_command="+clicked[1]+"&null=0"
+        fetch("http://192.168.1.147:13579/command.html", {"referrer": "http://192.168.1.147:13579/controls.html", "body": data, "method": "POST", mode: "no-cors"});// change this to always be the ip address of the machine running mpc-hc
+    }
+</script>
